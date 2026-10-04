@@ -1,0 +1,11 @@
+.pio/
+.pio-core/
+.cache/
+node_modules/
+artifacts/
+*.log
+.env
+.env.*
+!.env.example
+*.pem
+*.key

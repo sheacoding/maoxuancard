@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- [INPUT]: app.js、style.css 与设备 API
+     [OUTPUT]: 离线手机管理界面、连接诊断与可访问的编辑表单
+     [POS]: 静态页面骨架，不自行排版屏幕上的文字
+     [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md -->
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f3f0e8"><title>毛选 · 随身书摘</title><link rel="stylesheet" href="/style.css"><script type="module" src="/app.js"></script></head>
+<body>
+<header class="masthead"><a class="brand" href="/" aria-label="毛选卡片首页"><span class="seal" aria-hidden="true">毛<br>选</span><span>随身书摘<small>LINKBIT · 毛选卡片</small></span></a><span id="connection" class="connection" role="status">正在连接设备</span></header>
+<main>
+<section class="intro"><div><p class="eyebrow">读原著 · 思问题 · 见行动</p><h1>把一句话，<br class="mobile-break">放在眼前。</h1></div><p class="intro-note">从书页到墨水屏。<br>留一点时间，想清楚，再动手。</p></section>
+<section class="workspace" aria-label="卡面与书摘管理">
+<aside class="preview-panel">
+<div class="section-line"><h2>此刻，读这一句</h2><span id="preview-number">— / —</span></div>
+<div class="device"><div class="screen"><canvas id="preview" width="250" height="122" role="img" aria-label="卡面预览"></canvas><p id="preview-empty">选择一条书摘</p></div><div class="device-bottom"><span>linkbit</span><span class="device-keys" aria-hidden="true">●　●　●</span></div></div>
+<p id="preview-state" class="caption" role="status">250 × 122 · 黑 / 白 / 红</p>
+<div class="selected-info"><span id="selected-topic" class="eyebrow"></span><h3 id="selected-source">毛泽东选集</h3><p id="selected-origin" class="muted">第一至第四卷 · 原文节选</p><a id="source-link" target="_blank" rel="noopener noreferrer" hidden>对照原文 ↗</a></div>
+<div class="actions"><button id="show" class="primary" disabled>上屏显示 <span aria-hidden="true">↗</span></button><button id="favorite" aria-pressed="false" disabled>☆ 收藏</button><button id="edit" disabled>复制编辑</button></div>
+<p id="display-state" class="feedback" role="status">预览与保存不会刷新墨水屏。</p>
+<details class="art-details"><summary>卡面配图 <span id="art-name"></span></summary><div id="art-picker" class="art-picker" aria-label="选择配图"></div></details>
+<div class="key-guide"><span><b>A</b> 上一条</span><span><b>B</b> 随机</span><span><b>C</b> 下一条</span><p>长按 B 三秒进入管理 · 闲置五分钟休眠</p></div>
+</aside>
+<div class="library-panel">
+<nav class="tabs" aria-label="书摘分类"><button data-tab="curated" aria-current="page">精选库 <span id="curated-count">30</span></button><button data-tab="personal">个人书摘 <span id="personal-count">0</span></button><button data-tab="favorites">收藏 <span id="favorite-count">0</span></button><button data-tab="settings">设置</button></nav>
+<section id="library-view"><div class="filter-row"><label class="search"><span class="sr-only">搜索原文或篇名</span><input id="search" type="search" placeholder="搜索原文、篇名…" autocomplete="off"></label><label><span class="sr-only">按主题筛选</span><select id="topic"><option value="">全部主题</option></select></label><button id="add" aria-label="新增个人书摘">＋ 新增</button></div><p id="library-meta" class="caption">原文短节选，完整出处可查。</p><div id="cards" class="card-list" aria-live="polite"></div><div id="empty" class="empty" hidden><span aria-hidden="true">册</span><h3 id="empty-title">还没有书摘</h3><p id="empty-copy">从精选库收藏，或记下自己的阅读所得。</p></div></section>
+<section id="settings-view" hidden>
+<div class="settings-block"><h2>设备翻阅集合</h2><p class="muted">决定 A、B、C 按键会翻到哪些书摘。</p><label class="radio"><input type="radio" name="collection" value="all" checked> 全部书摘</label><label class="radio"><input type="radio" name="collection" value="favorites"> 仅收藏</label><p id="collection-note" class="caption"></p></div>
+<div class="settings-block"><h2>每日自动换句</h2><p id="clock-info" class="muted">正在取得北京时间…</p><p id="clock-next" class="caption">联网校时后，每天 08:00 自动切换下一条。</p></div>
+<div class="settings-block"><h2>你的书摘，自己保管</h2><p class="muted">导出个人书摘、收藏和配图选择。最多 100 条个人书摘。</p><div class="actions"><button id="export">导出 JSON</button><button id="import">导入 JSON</button><input id="import-file" class="sr-only" type="file" accept=".json,application/json"></div><p id="import-result" role="status" class="feedback"></p><p id="storage" class="caption"></p></div>
+<div class="settings-block"><h2>连接 Wi-Fi</h2><p id="network-info" class="muted"></p><button id="scan">扫描附近网络</button><label>附近网络<select id="networks"><option value="">扫描后选择，或手动填写</option></select></label><form id="wifi-form"><label>网络名称<input id="ssid" maxlength="32" autocomplete="off" required></label><label>网络密码<input id="wifi-password" type="password" maxlength="64" autocomplete="new-password" placeholder="开放网络可留空"></label><button type="submit">连接并保存</button></form><p id="wifi-state" role="status" class="feedback"></p><details class="wifi-details"><summary>连接诊断</summary><pre id="wifi-diagnostics">本次开机尚无连接记录。</pre></details></div>
+<div class="settings-block"><h2>屏幕与按键</h2><p class="muted">三色屏一次完整刷新约 15–17 秒。刷新时可继续管理；连续上屏只执行最新目标。B 键唤醒后先松开，再进行操作。</p><p id="device-detail" class="caption"></p></div>
+</section>
+</div>
+</section>
+</main>
+<footer><span>毛泽东选集 · 第一至第四卷</span><span>在实践中读，在实践中用。</span></footer>
+<dialog id="editor" aria-labelledby="editor-title"><form id="edit-form"><div class="dialog-head"><h2 id="editor-title">记下一条书摘</h2><button id="close-editor" type="button" aria-label="关闭编辑">×</button></div><p class="muted">个人录入 · 未核验。原文和篇名须能完整放入一屏。</p><label>原文 <span class="required">*</span><textarea id="text" rows="4" required placeholder="写下你想反复读的一句话"></textarea></label><label>篇名 <span class="required">*</span><input id="source" required placeholder="不需要添加外层书名号"></label><div class="form-pair"><label>卷次<select id="volume"><option value="0">未指定</option><option value="1">第一卷</option><option value="2">第二卷</option><option value="3">第三卷</option><option value="4">第四卷</option></select></label><label>主题<input id="edit-topic" placeholder="如：调查研究"></label></div><label>出处链接（可选）<input id="url" type="url" placeholder="https://"></label><label>配图<select id="edit-art"></select></label><div class="editor-preview"><canvas id="draft-preview" width="250" height="122" aria-label="编辑书摘预览"></canvas></div><p id="edit-error" role="status" class="feedback"></p><div class="actions"><button type="button" id="draft-button">检查预览</button><button type="submit" class="primary">保存书摘</button><button type="button" id="delete" class="danger" hidden>删除</button></div></form></dialog>
+<div id="toast" role="status" hidden></div>
+</body></html>

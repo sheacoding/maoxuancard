@@ -1,0 +1,30 @@
+{
+  "checked": "2026-09-13",
+  "method": "逐条对照正文页，并用中国共产党新闻网《毛泽东选集》各卷目录核对篇名与卷次。",
+  "officialCatalogs": [
+    "https://www.12371.cn/special/mzdxj/dyj/",
+    "https://www.12371.cn/special/mzdxj/dej/",
+    "https://www.12371.cn/special/mzdxj/d3j/",
+    "https://www.12371.cn/special/mzdxj/d4j/"
+  ],
+  "officialFullText": [
+    "https://www.12371.cn/2012/08/10/ARTI1344592797863461.shtml",
+    "https://news.12371.cn/2017/08/29/ARTI1504001411770206.shtml",
+    "https://news.12371.cn/2017/08/29/ARTI1504001209326173.shtml",
+    "https://www.12371.cn/2012/11/19/ARTI1353322284898760.shtml",
+    "https://news.12371.cn/2016/02/25/ARTI1456354051355105.shtml"
+  ],
+  "portraits": [
+    {
+      "file": "portrait-1927.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Mao_Zedong_in_1927.jpg",
+      "description": "1927 年武汉肖像，作者不详，页面标注来源新华社及中国公版说明。"
+    },
+    {
+      "file": "portrait-1937.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Mao_Zedong_1937.jpg",
+      "description": "1937 年延安肖像，Edgar Snow 摄，页面标注 CC0。"
+    }
+  ],
+  "illustrations": "调查笔记、山间小路、麦穗、指南针、天平、书桌灯均由 tools/prepare.ts 以整数像素笔画生成。"
+}
